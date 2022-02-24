@@ -44,7 +44,7 @@ export default function cloudReducer(state=defaultState, action){
         case ADD_FILES:
             return {
                 ...state,
-                files: [...state.files, action.payload]
+                files: [action.payload, ...state.files]
             }
 
         case SET_SELECTED:

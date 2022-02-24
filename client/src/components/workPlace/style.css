@@ -55,7 +55,6 @@ body {
     height: 225px;
     display: flex;
     align-items: center;
-    justify-content: center;
     margin: 10px 15px;
     border-radius: 10px;
     flex-direction: column;
@@ -73,6 +72,12 @@ body {
     flex-direction: column;
     align-items: center;
     color: #0071eb;
+    position: relative;
+    top: 23px;
+}
+
+.showcase-container .showcase-title {
+    line-height: 1.3;
 }
 
 .showcase-item {
@@ -139,6 +144,8 @@ body {
 .file {
     background-image: url('../../assets/img/file.png');
     background-size: 85px;
+    margin-bottom: 7px;
+    margin-top: -6px;
 }
 
 .work-place-file-block:hover {

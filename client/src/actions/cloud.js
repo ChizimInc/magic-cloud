@@ -10,6 +10,7 @@ import {
 } from "../reducers/cloudReducer"
 
 import { setModalMsg, setLoader } from "../reducers/appReducer"
+import { addFiles } from "../reducers/cloudReducer"
 import { tokenRefresh } from "./user"
 import { auth } from "./user"
 
@@ -204,9 +205,21 @@ export const DeleteFile = (id, current_folder) => {
     }
 }
 
-export const UploadFile = (path, name) => {
+export const UploadFile = (file, formData, current_folder) => {
     return async dispatch => {
-        dispatch(setFiles([{'id': uuid(), 'name': name, 'type': 'file', 'src': path}]))
+        dispatch(addFiles({'id': uuid(), 'name': file.name, 'type': 'file'}))
         dispatch(setUploadFileStatus(true))
+        axios.post("http://localhost:8000/api/v1/cloud/file/upload", formData, {
+            headers: {
+                'Authorization': "JWT " + localStorage.getItem('access')
+            }
+        })
+        .then(function(response){
+            dispatch(GetFolder(current_folder))
+            dispatch(setUploadFileStatus(false))
+        })
+        .catch(function(error){
+            console.log(error)
+        })
     }
 }

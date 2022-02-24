@@ -21,7 +21,7 @@ import { MdDeleteOutline } from 'react-icons/md'
 
 import { CreateFolder, DeleteFile } from "../../actions/cloud"
 import { setShowDeleteButton } from "../../reducers/appReducer"
-import { BreadCrumbs } from "./BreadCrumbs"
+import { FileInput } from '../utils/input/FileInput'
 
 
 const ControlButtons = ({onRename}) => {
@@ -113,7 +113,7 @@ const ControlButtons = ({onRename}) => {
                     <Nav>
                         <ButtonGroup ref={ref} aria-label="Basic example" className="work-place-navbar-button-group">
                             <AiOutlineFolderAdd onClick={createFolderHandle} className="item-active" />
-                            <AiOutlineCloudUpload className="item-active" />
+                            <FileInput current_folder={parent}  />
                             <AiOutlineLink className={`${selected ? 'item-active' : 'item-disable'}`} />
                             <MdDeleteOutline onClick={deleteHandleClick} className={activeBtn} />
                             <Overlay

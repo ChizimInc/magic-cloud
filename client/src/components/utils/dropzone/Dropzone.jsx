@@ -1,20 +1,19 @@
 import React, {useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { useDropzone } from 'react-dropzone';
 import { UploadFile } from '../../../actions/cloud';
 
 const Dropzone = () => {
     const dispatch = useDispatch()
+    const current_folder =  useSelector(state => state.cloud.current_folder)
 
     const onDrop = useCallback(acceptedFiles => {
         acceptedFiles.map( (file) => {
-            const reader = new FileReader()
-            reader.onload = function(e) {
-                dispatch(UploadFile(e.target.result, file.name))
-            }
-            reader.readAsDataURL(file);
-            return file;
+            const formData = new FormData()
+            formData.append("file", file)
+            dispatch(UploadFile(file, formData, current_folder))
+            
         })
 
     }, [])

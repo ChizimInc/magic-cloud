@@ -53,12 +53,12 @@ const FileBlock = ({id, type, title}) => {
                     { type == 'file' && <div className='showcase-item file'>
                         { uploadFileStatus && <Loader on={uploadFileStatus} />}
                     </div>}
-                    
+
                     { type == 'dir' && <div className='showcase-item folder'>
                         { id == selected && <Loader /> }
                     </div>}
                     
-                    { rename && rename == id ? <RenameInput id={id} title={title} /> : <p>{title}</p>}
+                    { rename && rename == id ? <RenameInput id={id} title={title} /> : <center className="showcase-title">{title}</center>}
                 </div>
             </motion.div>
         </>
