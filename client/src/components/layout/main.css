@@ -1,0 +1,15 @@
+
+.nav-link a, .navbar-brand a {
+    color: rgb(77, 70, 70);
+    text-decoration: none;
+}
+
+.navbar-logo {
+    display: flex;
+    align-items: flex-end;
+}
+
+.navbar-logo svg {
+    width: 40px;
+    height: 38px;
+}
