@@ -90,7 +90,7 @@ export const CreateFolder = (parent_id, files) => {
             if(error.response.status == 401){
                 dispatch(tokenRefresh())
                 dispatch(setLoader(false))
-                return dispatch(CreateFolder(type, name, parent_id))
+                return dispatch(CreateFolder(parent_id, files))
                 
             }
             dispatch(setLoader(false))
@@ -207,9 +207,11 @@ export const DeleteFile = (id, current_folder) => {
 
 export const UploadFile = (file, formData, current_folder) => {
     return async dispatch => {
+        console.log(current_folder, 'from action')
         dispatch(addFiles({'id': uuid(), 'name': file.name, 'type': 'file'}))
         dispatch(setUploadFileStatus(true))
-        axios.post("http://localhost:8000/api/v1/cloud/file/upload", formData, {
+        const link = "http://localhost:8000/api/v1/cloud/file/upload"
+        axios.post(link, formData, {
             headers: {
                 'Authorization': "JWT " + localStorage.getItem('access')
             }
@@ -219,7 +221,14 @@ export const UploadFile = (file, formData, current_folder) => {
             dispatch(setUploadFileStatus(false))
         })
         .catch(function(error){
-            console.log(error)
+            if(error.response.status == 401){
+                dispatch(tokenRefresh())
+                dispatch(GetFolder(current_folder))
+                return dispatch(UploadFile(file, formData, current_folder))
+                
+            }
+            dispatch(setUploadFileStatus(false))
+            dispatch(GetFolder(current_folder))
         })
     }
 }

@@ -6,6 +6,7 @@ import { AiOutlineCloudUpload } from 'react-icons/ai'
 
 const  FileInput = ({current_folder}) => {
     const dispatch = useDispatch()
+    const dirStack =  useSelector(state => state.cloud.dirStack)
 
     const handleFile = (e) => {
         const file = e.target.files[0]
@@ -14,7 +15,12 @@ const  FileInput = ({current_folder}) => {
         }else{
             const formData = new FormData()
             formData.append("file", file)
-            dispatch(UploadFile(file, formData, current_folder))
+            formData.append("name", file.name)
+            formData.append("type", 'file')
+            if(dirStack[dirStack.length - 1]?.current != 'undefined'){
+                formData.append("parent_id", dirStack[dirStack.length - 1]?.current)
+                dispatch(UploadFile(file, formData, dirStack[dirStack.length - 1]?.current))
+            }
         }
     }
 
