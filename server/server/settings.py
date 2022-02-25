@@ -131,8 +131,8 @@ STATIC_URL = '/static/'
 STATIC_DIR = os.path.join(BASE_DIR, 'build/static')
 STATICFILES_DIR = [STATIC_DIR]
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/cloud/files/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'cloud/files')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

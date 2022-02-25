@@ -33,6 +33,12 @@ class FileCreateSerializer(serializers.Serializer):
         return File.objects.create(**validated_data)
 
 
+class FileSerializer(serializers.ModelSerializer):
+  class Meta():
+    model = File
+    fields = '__all__'
+
+
 class GetFolderSerializer(serializers.ModelSerializer):
 
     class Meta:

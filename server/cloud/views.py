@@ -6,9 +6,10 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.parsers import FileUploadParser, MultiPartParser, FormParser
 
 from cloud.models import File, UserAccount
-from cloud.serializers import FileCreateSerializer, GetFolderSerializer, RenameFileSerializer
+from cloud.serializers import FileCreateSerializer, GetFolderSerializer, RenameFileSerializer, FileSerializer
 
 
 class CreateUserMainDirectory(APIView):
@@ -168,3 +169,28 @@ class DeleteFile(APIView):
             os.rmdir(os_file_path)
 
         return Response(status=status.HTTP_200_OK)
+
+
+
+class FileUploadView(APIView):
+    parser_classes = (MultiPartParser, FormParser)
+    permission_classes = [IsAuthenticated]
+    def post(self, request, *args, **kwargs):
+        file_serializer = FileSerializer(data=request.data)
+        if file_serializer.is_valid():
+            file = file_serializer.save()
+
+            file_from_db = File.objects.get(id=file.id)
+            parent_folder_db = File.objects.get(id=file.parent_id)
+
+            file_from_db.size = request.data['file'].size
+            file_from_db.path = parent_folder_db.path + '\\' + file.name
+            file_from_db.user_id = request.user.id
+            file_from_db.save()
+
+            parent_folder_db.childs = file.id
+            parent_folder_db.save()
+
+            return Response(file_serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(file_serializer.errors, status=status.HTTP_400_BAD_REQUEST)

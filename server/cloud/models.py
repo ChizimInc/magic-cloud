@@ -47,15 +47,18 @@ class File(models.Model):
 
     name = models.CharField(max_length=255)
     type = models.CharField(max_length=255)
-    access_lynk = models.CharField(max_length=255)
+    access_lynk = models.CharField(max_length=255, default='')
     size = models.IntegerField(default=0)
     path = models.CharField(default='', max_length=255)
     user_id = models.IntegerField(default=0)
     parent_id = models.IntegerField(default=0)
-    childs = models.CharField(max_length=255)
+    childs = models.CharField(max_length=255, default='')
+    file = models.FileField(null=True, default='')
 
     def __str__(self):
         return self.name
+
+
 
 
 
