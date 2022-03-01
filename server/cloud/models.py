@@ -37,10 +37,14 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
     objects = UserAccountManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username', 'disk_space', 'used_space', 'profile_photo', 'main_folder','is_active']
+    REQUIRED_FIELDS = ['username', 'disk_space', 'used_space', 'profile_photo', 'main_folder', 'is_active']
 
     def __str__(self):
         return self.username
+
+
+def user_directory_path(instance, filename):
+    return '{0}/{1}'.format(instance.user_id, instance.path)
 
 
 class File(models.Model):
@@ -53,7 +57,7 @@ class File(models.Model):
     user_id = models.IntegerField(default=0)
     parent_id = models.IntegerField(default=0)
     childs = models.CharField(max_length=255, default='')
-    file = models.FileField(null=True, default='')
+    file = models.FileField(null=True, upload_to=user_directory_path, default='')
 
     def __str__(self):
         return self.name

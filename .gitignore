@@ -1,3 +1,6 @@
 /venv
 /.idea
 /client/node_modules
+/server/cloud/__pycache__
+/server/cloud/files/
+/server/cloud/migrations

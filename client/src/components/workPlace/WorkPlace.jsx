@@ -50,7 +50,7 @@ const WorkPlace = () => {
 
     return(
         <>
-            <div className="container d-flex justify-content-center mt-3" >
+            <div className="container d-flex justify-content-center mt-1" >
                 <Card className="work-place-main-card" onClick={()=> dispatch(setShowDeleteButton(false))}>
                     <ControlButtons onRename={onRename} />
                     <GoBack />

@@ -18,6 +18,9 @@ const  FileInput = ({current_folder}) => {
             formData.append("name", file.name)
             formData.append("type", 'file')
             if(dirStack[dirStack.length - 1]?.current != 'undefined'){
+                if(dirStack.length == 0){
+                    return dispatch(UploadFile(file, formData, '0'))
+                }
                 formData.append("parent_id", dirStack[dirStack.length - 1]?.current)
                 dispatch(UploadFile(file, formData, dirStack[dirStack.length - 1]?.current))
             }
