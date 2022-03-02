@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+import django_heroku
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -13,7 +14,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-@xolg6s#gu$=pgy#i2rl)upl#=d_k6jw6*y9%v%kir*@dt(p8^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
@@ -44,6 +45,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -134,6 +136,8 @@ STATICFILES_DIR = [STATIC_DIR]
 MEDIA_URL = '/cloud/files/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'cloud/files')
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
@@ -173,3 +177,5 @@ REST_FRAMEWORK = {
 SIMPLE_JWT = {
    'AUTH_HEADER_TYPES': ('JWT',),
 }
+
+django_heroku.settings(locals())
