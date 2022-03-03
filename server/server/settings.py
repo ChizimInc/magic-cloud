@@ -16,14 +16,18 @@ SECRET_KEY = 'django-insecure-@xolg6s#gu$=pgy#i2rl)upl#=d_k6jw6*y9%v%kir*@dt(p8^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
+ALLOWED_HOSTS = ['34.88.59.232']
+
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
-    "http://127.0.0.1:3000"
+    "http://127.0.0.1:3000",
+    "https://magic-cloud.vercel.app"
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
-    "http://127.0.0.1:3000"
+    "http://127.0.0.1:3000",
+    "https://magic-cloud.vercel.app"
 ]
 
 

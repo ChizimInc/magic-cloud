@@ -30,7 +30,7 @@ const LoadingButton = () => {
             disabled={isLoading}
             onClick={!isLoading ? handleClick : null}
         >
-            {isLoading ? 'Loading…' : 'Get  started'}
+            {isLoading ? 'Loading…' : 'Get  started for free'}
         </Button>
     );
 }
