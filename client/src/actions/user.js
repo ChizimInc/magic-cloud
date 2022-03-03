@@ -3,6 +3,8 @@ import axios from "axios";
 import { setToken, setUser, logout } from "../reducers/userReducer";
 import { setModalMsg, setLoader, signupSuccess, redirect } from "../reducers/appReducer"
 
+const REACT_APP_SERVER_URL = "http://34.88.59.232/"
+
 
 export const registration = (email, username, password, re_password) => {
 
@@ -20,7 +22,7 @@ export const registration = (email, username, password, re_password) => {
 
         dispatch(setLoader(true))
 
-        axios.post("http://localhost:8000/api/auth/users/", {
+        axios.post(REACT_APP_SERVER_URL + "api/auth/users/", {
             email,
             username,
             password,
@@ -52,7 +54,7 @@ export const registration = (email, username, password, re_password) => {
 export const login = (email, password) => {
     return async dispatch => {
             dispatch(setLoader(true))
-            axios.post("http://localhost:8000/api/auth/jwt/create/", {
+            axios.post(REACT_APP_SERVER_URL + "api/auth/jwt/create/", {
                 email,
                 password
             })
@@ -87,7 +89,7 @@ export const auth = () => {
 
     return async dispatch => {
 
-        axios.get("http://localhost:8000/api/auth/users/me/",
+        axios.get(REACT_APP_SERVER_URL + "api/auth/users/me/",
             {
                 headers:{
                     'Authorization': `JWT ${localStorage.getItem('access')}`,
@@ -107,7 +109,7 @@ export const auth = () => {
             if(error.response?.status === 401){
                 const refresh = localStorage.getItem('refresh')
                 
-                axios.post("http://localhost:8000/api/auth/jwt/refresh/",{
+                axios.post(REACT_APP_SERVER_URL + "api/auth/jwt/refresh/",{
                     refresh
                 })
                 .then(function (response){
@@ -125,7 +127,7 @@ export const tokenRefresh = () => {
     const refresh = localStorage.getItem('refresh')
 
     return async dispatch => {
-        axios.post("http://localhost:8000/api/auth/jwt/refresh/", {
+        axios.post(REACT_APP_SERVER_URL + "api/auth/jwt/refresh/", {
             refresh
         })
         .then(function(response){

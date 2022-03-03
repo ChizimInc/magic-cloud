@@ -17,7 +17,7 @@ const Home = () => {
     if(redirect){
         return <Navigate to={redirect} />
     }
-
+    console.log(process.env.REACT_APP_SERVER_URL)
 
     return(
         <>
