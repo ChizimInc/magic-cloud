@@ -16,7 +16,7 @@ import { auth } from "./user"
 
 import uuid from 'react-uuid'
 
-const REACT_APP_SERVER_URL = "http://34.141.197.205/"
+const REACT_APP_SERVER_URL = "https://34.141.197.205/"
 
 export const createMainFolder = () => {
     

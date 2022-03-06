@@ -3,7 +3,7 @@ import axios from "axios";
 import { setToken, setUser, logout } from "../reducers/userReducer";
 import { setModalMsg, setLoader, signupSuccess, redirect } from "../reducers/appReducer"
 
-const REACT_APP_SERVER_URL = "http://34.141.197.205/"
+const REACT_APP_SERVER_URL = "https://34.141.197.205/"
 
 
 export const registration = (email, username, password, re_password) => {
