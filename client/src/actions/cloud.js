@@ -16,7 +16,7 @@ import { auth } from "./user"
 
 import uuid from 'react-uuid'
 
-const REACT_APP_SERVER_URL = "https://34.141.197.205/"
+const REACT_APP_SERVER_URL = "https://cloud-storage-server.site/"
 
 const instance = axios.create({
     httpsAgent: new https.Agent({  
@@ -218,7 +218,7 @@ export const UploadFile = (file, formData, current_folder) => {
         dispatch(addFiles({'id': uuid(), 'name': file.name, 'type': 'file'}))
         dispatch(setUploadFileStatus(true))
         const link = REACT_APP_SERVER_URL + "api/v1/cloud/file/upload"
-        
+
         instance.post(link, formData, {
             headers: {
                 'Authorization': "JWT " + localStorage.getItem('access')

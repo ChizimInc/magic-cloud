@@ -3,7 +3,7 @@ import axios from "axios";
 import { setToken, setUser, logout } from "../reducers/userReducer";
 import { setModalMsg, setLoader, signupSuccess, redirect } from "../reducers/appReducer"
 
-const REACT_APP_SERVER_URL = "https://34.141.197.205/"
+const REACT_APP_SERVER_URL = "https://cloud-storage-server.site/"
 
 const instance = axios.create({
     httpsAgent: new https.Agent({  
