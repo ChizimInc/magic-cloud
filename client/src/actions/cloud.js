@@ -18,11 +18,17 @@ import uuid from 'react-uuid'
 
 const REACT_APP_SERVER_URL = "https://34.141.197.205/"
 
+const instance = axios.create({
+    httpsAgent: new https.Agent({  
+      rejectUnauthorized: false
+    })
+});
+
 export const createMainFolder = () => {
     
     return async dispatch => {
         const link = REACT_APP_SERVER_URL + "api/v1/cloud/main-directory/create"
-        axios.post(link, {}, {
+        instance.post(link, {}, {
             headers: {
                 'Authorization': 'JWT ' + localStorage.getItem('access')
             }
@@ -70,7 +76,7 @@ export const CreateFolder = (parent_id, files) => {
         }
         folderNameFunc()
 
-        axios.post(REACT_APP_SERVER_URL + "api/v1/cloud/directory/create", {
+        instance.post(REACT_APP_SERVER_URL + "api/v1/cloud/directory/create", {
             type,
             name,
             parent_id
@@ -105,7 +111,7 @@ export const GetFolder = (folder_id = 0) => {
     return async dispatch => {
         dispatch(setLoader(true))
  
-        axios.get(`${REACT_APP_SERVER_URL}api/v1/cloud/directory/get/${folder_id}`, {
+        instance.get(`${REACT_APP_SERVER_URL}api/v1/cloud/directory/get/${folder_id}`, {
             headers: {
                 'Authorization': "JWT " + localStorage.getItem('access')
             }
@@ -145,7 +151,7 @@ export const RenameFile = (title, id, current_folder, files) => {
         }
 
         dispatch(setLoader(true))
-        axios.post(REACT_APP_SERVER_URL + "api/v1/cloud/directory/rename", {
+        instance.post(REACT_APP_SERVER_URL + "api/v1/cloud/directory/rename", {
             title,
             id
         },{
@@ -181,7 +187,7 @@ export const DeleteFile = (id, current_folder) => {
     return async dispatch => {
         dispatch(setLoader(true))
 
-        axios.post(REACT_APP_SERVER_URL + "api/v1/cloud/directory/delete", {
+        instance.post(REACT_APP_SERVER_URL + "api/v1/cloud/directory/delete", {
             id
         },{
             headers:  {
@@ -212,7 +218,8 @@ export const UploadFile = (file, formData, current_folder) => {
         dispatch(addFiles({'id': uuid(), 'name': file.name, 'type': 'file'}))
         dispatch(setUploadFileStatus(true))
         const link = REACT_APP_SERVER_URL + "api/v1/cloud/file/upload"
-        axios.post(link, formData, {
+        
+        instance.post(link, formData, {
             headers: {
                 'Authorization': "JWT " + localStorage.getItem('access')
             }
