@@ -4,11 +4,11 @@ import { motion } from 'framer-motion';
 import './main.css'
 
 
-const Loader = ({on}) => {
+const Loader = ({status = false, file_id}) => {
 
     let loader = useSelector(state => state.app.loader)
     
-    if(on){
+    if(status == file_id && status != false){
         loader = true
     }
     

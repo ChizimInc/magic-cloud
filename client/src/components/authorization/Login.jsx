@@ -32,13 +32,14 @@ const Login = () => {
 
     return (
         <motion.div 
-          className="container-md mt-5"
+          className="container-md mt-5 login-form"
           initial={variants.hidden}
           animate={variants.visible}
           variants={variants}
           transition={{
             duration: 0.5
           }}
+          style={{maxWidth: '80%'}}
           onKeyPress={(e) => e.key === 'Enter' && dispatch(login(email, password))}
         >
             <h3>Login</h3>

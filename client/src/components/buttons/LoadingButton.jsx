@@ -25,13 +25,17 @@ const LoadingButton = () => {
 
 
     return (
-        <Button
-            variant="primary"
-            disabled={isLoading}
-            onClick={!isLoading ? handleClick : null}
-        >
-            {isLoading ? 'Loading…' : 'Get  started for free'}
-        </Button>
+        <div style={{height: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+
+            <Button
+                variant="primary"
+                disabled={isLoading}
+                onClick={!isLoading ? handleClick : null}
+                style={{padding: '10px 20px'}}
+            >
+                {isLoading ? 'Loading…' : 'Get  started for free'}
+            </Button>
+        </div>
     );
 }
 

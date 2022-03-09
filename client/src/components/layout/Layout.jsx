@@ -28,7 +28,7 @@ const Layout = () => {
           <Navbar bg="light" expand="lg">
             <Container>
               <Navbar.Brand href="#" onClick={goHomeHandler}>
-                <CustomLink to="/">
+                <CustomLink to="/cloud">
                   <div className="navbar-logo">
                     <AiOutlineCloud />Magic
                   </div>
@@ -37,9 +37,9 @@ const Layout = () => {
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto"></Nav>
                 <Nav>
-                    {!isAuth && <Nav.Link href="/login"><CustomLink to="/login">Sing in</CustomLink></Nav.Link>}
-                    {!isAuth && <Nav.Link href="/registration"><CustomLink to="/registration">Registration</CustomLink></Nav.Link>}
-                    { isAuth && <Nav.Link href="/profile"><CustomLink to="/profile">Profile</CustomLink></Nav.Link>}
+                    {!isAuth && <Nav.Link href="#"><CustomLink to="/login">Sing in</CustomLink></Nav.Link>}
+                    {!isAuth && <Nav.Link href="#"><CustomLink to="/registration">Registration</CustomLink></Nav.Link>}
+                    { isAuth && <Nav.Link href="#"><CustomLink to="/profile">Profile</CustomLink></Nav.Link>}
                     
                     { isAuth && <Nav.Link href="#" onClick={() => dispatch(logout())}>Log out</Nav.Link>}
                     

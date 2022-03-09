@@ -164,11 +164,10 @@ body {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    height: 90%;
 }
 
 .work-place-file-block-container section {
-    border: 1px solid #9a9999;
-    border-style: dashed;
     display: flex;
     flex-direction: column;
     justify-content: center;

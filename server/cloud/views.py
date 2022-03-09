@@ -111,11 +111,12 @@ class RenameFile(APIView):
         files_folder = os.path.join(base_dir, 'files')
         user_folder_path = os.path.join(files_folder, str(request.user.id))
 
-        file_file = str(file.file)
-        db_path_elem = file_file.split("/")
-        db_path_elem[-1] = request.data['title']
+        if file.type == 'file':
+            file_file = str(file.file)
+            db_path_elem = file_file.split("/")
+            db_path_elem[-1] = request.data['title']
 
-        file.file = '/'.join(map(str, db_path_elem))
+            file.file = '/'.join(map(str, db_path_elem))
 
         if file.parent_id == 0:
             file.path = request.data['title']
@@ -128,11 +129,16 @@ class RenameFile(APIView):
 
         else:
             if not file.childs:
-                db_file_path = str(file.file)
-                os_file_path = os.path.join(files_folder, db_file_path)
-                path_elem = file.path.split("\\")
+                if file.type == 'file':
+                    db_file_path = file_file
+                    os_file_path = os.path.join(files_folder, db_file_path)
+                else:
+                    os_file_path = os.path.join(user_folder_path, file.path)
+
+
+                path_elem = file.path.split("/")
                 path_elem[-1] = request.data['title']
-                file.path = '\\'.join(map(str, path_elem))
+                file.path = '/'.join(map(str, path_elem))
 
 
                 new_os_file_path = os.path.join(user_folder_path, file.path)
@@ -156,11 +162,9 @@ class DeleteFile(APIView):
 
     def post(self, request):
         file = File.objects.get(id=request.data['id'], user_id=request.user.id)
-
         base_dir = Path(__file__).resolve().parent
         files_folder = os.path.join(base_dir, 'files')
         user_folder_path = os.path.join(files_folder, str(request.user.id))
-
         if file.path == '':
             os_file_path = os.path.join(user_folder_path, file.name)
         else:
@@ -169,14 +173,14 @@ class DeleteFile(APIView):
                 os_file_path = os.path.join(files_folder, db_file_path)
             else:
                 os_file_path = os.path.join(user_folder_path, file.path)
-            
+
         if file.parent_id != 0 :
             posibile_file = File.objects.filter(parent_id=file.parent_id, user_id=request.user.id)
             if posibile_file.count() == 1:
                 parent = File.objects.get(id=file.parent_id, user_id=request.user.id)
                 parent.childs = ''
                 parent.save()
- 
+
         file.delete()
 
         if os.path.exists(os_file_path):
@@ -184,7 +188,6 @@ class DeleteFile(APIView):
                 os.rmdir(os_file_path)
             else:
                 os.remove(os_file_path)
-
 
 
         return Response(status=status.HTTP_200_OK)

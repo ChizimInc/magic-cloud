@@ -51,7 +51,7 @@ const FileBlock = ({id, type, title}) => {
             >
                 <div className='showcase-container'>
                     { type == 'file' && <div className='showcase-item file'>
-                        { uploadFileStatus && <Loader on={uploadFileStatus} />}
+                        { uploadFileStatus && <Loader status={uploadFileStatus} file_id={id}/>}
                     </div>}
 
                     { type == 'dir' && <div className='showcase-item folder'>

@@ -37,6 +37,7 @@ const Registration = () => {
           transition={{
             duration: 0.5
           }}
+          style={{maxWidth: '80%'}}
         >
             <h3>Registration</h3>
 

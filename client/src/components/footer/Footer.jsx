@@ -7,10 +7,8 @@ import './main.css'
 
 const Footer = () => {
     const dirStack = useSelector(state => state.cloud.dirStack)
-    const selected = useSelector(state => state.cloud.selected)
-    const files = useSelector(state =>  state.cloud.files)
 
-    const footerElements = dirStack.map((elem) => <FooterElement type='dir' stack={elem} />)
+    const footerElements = dirStack.map((elem) => <FooterElement type='dir' stack={elem} key={elem.current} />)
 
     return (
         <>
