@@ -3,9 +3,20 @@
 }
 
 .modal-header {
-    padding: 5px 10px;
+    padding: 2px 10px;
+    color: #6c757d;
 }
 
 .btn {
     padding: 0 8px;
+}
+
+.system-modal-container {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+}
+
+.modal-content {
+    box-shadow: rgb(0 0 0 / 35%) 0px 5px 15px;
 }

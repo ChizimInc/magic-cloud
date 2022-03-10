@@ -8,6 +8,7 @@ import { GoBack } from "./GoBack"
 import { Footer } from "../footer/Footer"
 import { Loader } from "../utils/loader/Loader"
 import { Dropzone } from "../utils/dropzone/Dropzone"
+import { SystemMessage } from "../message/SystemMessage"
 
 import { setSelected, setRename } from "../../reducers/cloudReducer"
 import { setShowDeleteButton } from "../../reducers/appReducer"
@@ -62,7 +63,9 @@ const WorkPlace = () => {
                         </PerfectScrollbar>
                     </Card.Body>
                 </Card>
+                
             </div>
+            <SystemMessage />
             <Footer />
         </>
     )

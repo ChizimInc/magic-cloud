@@ -92,6 +92,10 @@ body {
     height: 128px;
     background-position: center;
     background-repeat: no-repeat;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
 }
 
 .rename-input-error {
@@ -153,6 +157,39 @@ body {
     background-size: 85px;
     margin-bottom: 7px;
     margin-top: -6px;
+}
+
+.file-icon {
+    width: 50px;
+    height: 50px;
+    background-size: 50px 50px;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+}
+
+.file-icon-text {
+    font-size: 18pt;
+    text-align: center;
+}
+
+.msword {
+    background-image: url('../../assets/img/msword.png');
+}
+
+.msppoint {
+    background-image: url('../../assets/img/msppoint.png');
+}
+
+.msexcel {
+    background-image: url('../../assets/img/msexcel.png');
+}
+
+.jpg {
+    background-image: url('../../assets/img/jpg.png');
+}
+
+.audio {
+    background-image: url('../../assets/img/audio.png');
 }
 
 .work-place-file-block:hover {

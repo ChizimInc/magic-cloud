@@ -29,6 +29,7 @@ const Registration = () => {
     }
 
     return (
+        <>
         <motion.div 
           className="container-sm mt-5"
           initial={variants.hidden}
@@ -66,9 +67,10 @@ const Registration = () => {
             </Form>
 
             <Loader />
-            <SystemMessage />
             
         </motion.div>
+        <SystemMessage />
+        </>
     );
 };
 

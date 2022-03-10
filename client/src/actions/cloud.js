@@ -118,7 +118,7 @@ export const GetFolder = (folder_id = 0) => {
             dispatch(setSelected(false))
         })
         .catch(function(error){
-            if(error.response.status == 401){
+            if(error.response?.status == 401){
                 dispatch(tokenRefresh())
                 dispatch(GetFolder(folder_id))
                 dispatch(setLoader(false))
@@ -208,7 +208,12 @@ export const DeleteFile = (id, current_folder) => {
 }
 
 export const UploadFile = (file, formData, current_folder) => {
+    if(file.size > (1024 ** 2) * 20){
+        return dispatch => dispatch(setModalMsg("File size is to long, max size is 20 MB"))
+    }
+
     return async dispatch => {
+        
         const temp_id = uuid()
         dispatch(addFiles({'id': temp_id, 'name': file.name, 'type': 'file'}))
         dispatch(setUploadFileStatus(temp_id))
@@ -224,12 +229,13 @@ export const UploadFile = (file, formData, current_folder) => {
             dispatch(setUploadFileStatus(false))
         })
         .catch(function(error){
-            if(error.response.status == 401){
+            if(error.response?.status == 401){
                 dispatch(tokenRefresh())
                 dispatch(GetFolder(current_folder))
                 return dispatch(UploadFile(file, formData, current_folder))
                 
             }
+            dispatch(setModalMsg('File upload error'))
             dispatch(setUploadFileStatus(false))
             dispatch(GetFolder(current_folder))
         })

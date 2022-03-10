@@ -37,6 +37,51 @@ const FileBlock = ({id, type, title}) => {
         }
         
     }
+
+    const getExtensionRegExp = /\.[0-9a-z]+$/i
+
+    let match = getExtensionRegExp.exec(title)
+    let ext = 0
+    if(match?.length){
+        ext = match[0]
+    }
+    
+    let style = 0
+
+    const FileExtensions = {
+        '.word': 'msword',
+        '.docx': 'msword',
+        '.pptx': 'msppoint',
+        '.ppt':  'msppoint',
+        '.xls':  'msexcel',
+        '.xml':  'msexcel',
+        '.xlsx': 'msexcel',
+        '.xlsm': 'msexcel',
+        '.xlsb': 'msexcel',
+        '.jpg':  'jpg',
+        '.mp3':  'audio',
+        '.wav':  'audio',
+        '.wma':  'audio',
+        '.acc':  'audio',
+        '.m4a':  'audio',
+        '.mp4':  'video',
+    }
+
+    if(ext){
+        if(FileExtensions[match[0]]){
+            style = FileExtensions[match[0]]
+        }
+          
+    }
+
+    const FileIcon = (
+        <div className={`file-icon ${style}`}>
+            <div className='file-icon-text'>
+            { style == 0 && ext }
+            </div>
+        </div>
+    )
+
     return(
         <>
             <motion.div
@@ -51,8 +96,18 @@ const FileBlock = ({id, type, title}) => {
             >
                 <div className='showcase-container'>
                     { type == 'file' && <div className='showcase-item file'>
-                        { uploadFileStatus && <Loader status={uploadFileStatus} file_id={id}/>}
-                    </div>}
+                        { uploadFileStatus 
+                            ? 
+                                uploadFileStatus == id 
+                                    ?
+                                        <Loader status={uploadFileStatus} file_id={id}/> 
+                                    :
+                                        FileIcon
+                            : 
+                                FileIcon
+                        }
+                    </div>
+                    }
 
                     { type == 'dir' && <div className='showcase-item folder'>
                         { id == selected && <Loader /> }

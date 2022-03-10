@@ -31,6 +31,7 @@ const Login = () => {
     }
 
     return (
+        <>
         <motion.div 
           className="container-md mt-5 login-form"
           initial={variants.hidden}
@@ -61,9 +62,11 @@ const Login = () => {
             </Form>
 
             <Loader />
-            <SystemMessage />
+            
             
         </motion.div>
+        <SystemMessage />
+        </>
     );
 };
 

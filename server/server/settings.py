@@ -18,6 +18,8 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['34.88.59.232']
 
+DATA_UPLOAD_MAX_MEMORY_SIZE = (1024 ** 2) * 20
+
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",

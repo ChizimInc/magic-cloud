@@ -35,6 +35,7 @@ const SystemMessage = () => {
                 transition={{
                     duration: 0.5
                 }}
+                className="system-modal-container"
             >
                 <Modal.Dialog>
                     <Modal.Header>
