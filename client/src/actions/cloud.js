@@ -241,3 +241,22 @@ export const UploadFile = (file, formData, current_folder) => {
         })
     }
 }
+
+export async function DownloadFile(file_id, file_name) {
+    const response = await fetch(`${REACT_APP_SERVER_URL}api/v1/cloud/file/download/${file_id}`, {
+        headers: {
+            'Authorization': "JWT " + localStorage.getItem('access')
+        }
+    })
+
+    if(response.status === 200){
+        const blob = await response.blob()
+        const url = window.URL.createObjectURL(blob)
+        const link = document.createElement("a")
+        link.href = url
+        link.download = file_name
+        document.body.appendChild(link)
+        link.click()
+        link.remove()
+    }
+}

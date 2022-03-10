@@ -22,6 +22,7 @@ import { MdDeleteOutline } from 'react-icons/md'
 import { CreateFolder, DeleteFile } from "../../actions/cloud"
 import { setShowDeleteButton } from "../../reducers/appReducer"
 import { FileInput } from '../utils/input/FileInput'
+import { DownloadFile } from "../../actions/cloud"
 
 
 const ControlButtons = ({onRename}) => {
@@ -30,8 +31,11 @@ const ControlButtons = ({onRename}) => {
     const selected = useSelector(state => state.cloud.selected)
     const files = useSelector(state => state.cloud.files)
     const show = useSelector(state => state.app.deleteBtn)
+
     const [target, setTarget] = useState(null);
     const [activeBtn, setActiveBtn] = useState('item-disable')
+    const [activeDownloadBtn, setActiveDownloadBtn] = useState('item-disable')
+    const [fileName, setFileName] = useState('')
     const ref = useRef(null);
 
     useEffect( () => {
@@ -39,13 +43,19 @@ const ControlButtons = ({onRename}) => {
         for(let i = 0; i < files.length; i++){
             if(files[i].id == selected){
                 if(files[i].childs === ''){
+                    if(files[i].type == 'file'){
+                        setActiveDownloadBtn('item-active')
+                        setFileName(files[i].name)
+                    }
                     return setActiveBtn('item-active')
                     break
                 }else{
                     setActiveBtn('item-disable')
+                    setActiveDownloadBtn('item-disable')
                 }
             }else{
                 setActiveBtn('item-disable')
+                setActiveDownloadBtn('item-disable')
             }
         }
     }, [selected])
@@ -86,6 +96,12 @@ const ControlButtons = ({onRename}) => {
         }
     }
 
+    const downloadHandler = () => {
+        if(selected){
+            dispatch(DownloadFile(selected, fileName))
+        }
+    }
+
     const renameClickHandler = (e) => {
         e.preventDefault()
         files.map( (file) => {
@@ -114,7 +130,6 @@ const ControlButtons = ({onRename}) => {
                         <ButtonGroup ref={ref} aria-label="Basic example" className="work-place-navbar-button-group">
                             <AiOutlineFolderAdd onClick={createFolderHandle} className="item-active" />
                             <FileInput current_folder={parent}  />
-                            <AiOutlineLink className={`${selected ? 'item-active' : 'item-disable'}`} />
                             <MdDeleteOutline onClick={deleteHandleClick} className={activeBtn} />
                             <Overlay
                                 show={show}
@@ -130,7 +145,7 @@ const ControlButtons = ({onRename}) => {
                             </Overlay>
                             
                             <BiRename onClick={renameClickHandler} className={activeBtn} />
-                            <AiOutlineCloudDownload className={`${selected ? 'item-active' : 'item-disable'}`} />
+                            <AiOutlineCloudDownload onClick={downloadHandler} className={activeDownloadBtn } />
                         </ButtonGroup>   
                     </Nav>
                 </Navbar.Collapse>
