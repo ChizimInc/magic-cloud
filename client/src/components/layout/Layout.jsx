@@ -23,6 +23,13 @@ const Layout = () => {
       dispatch(clearStack())
     }
 
+    const logoutClickHandler = (e) => {
+      e.preventDefault()
+      dispatch(logout())
+      dispatch(clearStack())
+      dispatch(setCurrentFolder(0))
+    }
+
     return (
         <>
           <Navbar bg="light" expand="lg" className="p-0">
@@ -41,7 +48,7 @@ const Layout = () => {
                     {!isAuth && <Nav.Link href="#"><CustomLink to="/registration">Registration</CustomLink></Nav.Link>}
                     { isAuth && <Nav.Link href="#"><CustomLink to="/profile">Profile</CustomLink></Nav.Link>}
                     
-                    { isAuth && <Nav.Link href="#" onClick={() => dispatch(logout())}>Log out</Nav.Link>}
+                    { isAuth && <Nav.Link href="#" onClick={logoutClickHandler}>Log out</Nav.Link>}
                     
                 </Nav>
               </Navbar.Collapse>

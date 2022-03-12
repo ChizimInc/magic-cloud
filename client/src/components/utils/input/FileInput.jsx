@@ -21,6 +21,7 @@ const  FileInput = ({current_folder}) => {
             }
             formData.append("parent_id", dirStack[dirStack.length - 1]?.current)
             dispatch(UploadFile(file, formData, dirStack[dirStack.length - 1]?.current))
+            e.target.value = null
         }
         
     }
