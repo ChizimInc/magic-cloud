@@ -8,6 +8,7 @@ const SET_INPUT_ERROR = 'SET_INPUT_ERROR'
 const PUSH_TO_STACK = 'PUSH_TO_STACK'
 const CLEAR_STACK = 'CLEAR_STACK'
 const SET_UPLOAD_STATUS = 'SET_UPLOAD_STATUS'
+const SET_PROGRESS_UPLOAD = 'SET_PROGRESS_UPLOAD'
 
 
 const defaultState = {
@@ -18,7 +19,8 @@ const defaultState = {
     input_error: false,
     rename: null,
     dirStack: [],
-    uploadFileStatus: false
+    uploadFileStatus: false,
+    progress: 0
 }
 
 export default function cloudReducer(state=defaultState, action){
@@ -82,6 +84,12 @@ export default function cloudReducer(state=defaultState, action){
                 ...state,
                 uploadFileStatus: action.payload
             }
+
+        case SET_PROGRESS_UPLOAD:
+            return {
+                ...state,
+                progress: action.payload
+            }
         
         default:
             return state
@@ -98,3 +106,4 @@ export const setInputError = bool => ({ type: SET_INPUT_ERROR, payload: bool })
 export const pushToStack = dir => ({ type: PUSH_TO_STACK, payload: dir })
 export const clearStack = () => ({ type: CLEAR_STACK })
 export const setUploadFileStatus = bool => ({ type: SET_UPLOAD_STATUS, payload: bool})
+export const setProgressUpload = int => ({type:  SET_PROGRESS_UPLOAD, payload: int})

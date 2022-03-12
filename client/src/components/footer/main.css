@@ -14,6 +14,12 @@
     width: 99%;
     margin-bottom: 4px;
     display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.footer-left {
+    display: flex;
 }
 
 .footer-first-element {
@@ -61,4 +67,14 @@
 
 .footer-element-title:hover {
     text-decoration: underline;
+}
+
+.progress {
+    width: 150px;
+}
+
+@media only screen and (max-width: 750px) {
+    .progress {
+        display: none;
+    }
 }

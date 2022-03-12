@@ -6,7 +6,8 @@ import {
     setCurrentFolder, 
     setInputError, 
     setRename,
-    setUploadFileStatus
+    setUploadFileStatus,
+    setProgressUpload
 } from "../reducers/cloudReducer"
 
 import { setModalMsg, setLoader } from "../reducers/appReducer"
@@ -222,6 +223,14 @@ export const UploadFile = (file, formData, current_folder) => {
         axios.post(link, formData, {
             headers: {
                 'Authorization': "JWT " + localStorage.getItem('access')
+            },
+            onUploadProgress: progressEvent => {
+                const totalLength = progressEvent.lengthComputable ? progressEvent.total : progressEvent.target.getResponseHeader('content-length') || progressEvent.target.getResponseHeader('x-decompressed-content-length');
+
+                if (totalLength) {
+                    let progress = Math.round((progressEvent.loaded * 100) / totalLength)
+                    dispatch(setProgressUpload(progress))
+                }
             }
         })
         .then(function(response){
