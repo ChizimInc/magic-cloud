@@ -115,7 +115,7 @@ const ControlButtons = ({onRename}) => {
 
     return (
         <>
-           <Navbar bg="light" expand="lg" className="pt-0 work-place-navbar">
+           <Navbar expand="lg" className="pt-0 work-place-navbar">
                 <Container>
                 <NavDropdown title="My Cloud" id="nav-dropdown">
                     <NavDropdown.Item>Create file</NavDropdown.Item>
