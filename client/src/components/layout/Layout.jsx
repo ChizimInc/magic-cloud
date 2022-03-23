@@ -32,7 +32,7 @@ const Layout = () => {
 
     return (
         <>
-          <Navbar bg="light" expand="lg" className="p-0">
+          <Navbar expand="lg" className="p-0">
             <Container className="main-conatainer-menu">
               <Navbar.Brand href="#" onClick={goHomeHandler} >
                 <CustomLink to="/cloud">
